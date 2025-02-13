@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First N Prime Numbers</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            text-align: center;
+        }
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>First N Prime Numbers</h1>
+        <label for="nInput">Enter N:</label><br>
+        <input type="number" id="nInput" min="1" value="10"><br>  <button onclick="generatePrimes()">Generate Primes</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function generatePrimes() {
+            const n = parseInt(document.getElementById("nInput").value); // Get N and parse as integer
+
+            if (isNaN(n) || n < 1) {
+                document.getElementById("result").textContent = "Invalid input. Please enter a positive integer.";
+                return;
+            }
+
+            const primes = [];
+            let num = 2; // Start checking from 2
+
+            while (primes.length < n) {
+                if (isPrime(num)) {
+                    primes.push(num);
+                }
+                num++;
+            }
+
+            document.getElementById("result").textContent = "First " + n + " prime numbers: " + primes.join(", ");
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+
+            // Check divisibility up to the square root of num for efficiency
+            for (let i = 2; i * i <= num; i++) {
+                if (num % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
